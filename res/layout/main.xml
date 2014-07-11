@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="Mirror Status:"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"/>
+
+	<ToggleButton
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:textOn="Enabled"
+		android:textOff="Disabled"
+		android:id="@+id/mirrorButton"/>
 
 </LinearLayout>
+

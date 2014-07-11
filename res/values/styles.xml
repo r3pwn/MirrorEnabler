@@ -1,0 +1,5 @@
+<resources>
+	<style name="Light" perent="Theme.AppCompat.Light">
+		<!-- I ain't gotta put nothin' in here! -->
+	</style>
+</resources>
