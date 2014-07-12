@@ -39,6 +39,7 @@ public class MainActivity extends Activity
 			mirror.setChecked(true);
 		}
 		
+		
         final SharedPreferences.Editor prefs_edit = preferences.edit();
 
 		prefs_edit.putInt("incompatible_status", 0);
@@ -96,7 +97,7 @@ public class MainActivity extends Activity
 			}
 		}
 
-		// SQLite3 binary check.
+/**		// SQLite3 binary check.
 		File file = new File("/system/bin/sqlite3");
 		if(file.exists()) 
 		{
@@ -126,7 +127,8 @@ public class MainActivity extends Activity
 				alertDialog.show();  
 				mirror.setEnabled(false);
 			}
-		}
+		} */
+		
 		mirror.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 					if (mirror.isChecked() == true) {
@@ -135,8 +137,8 @@ public class MainActivity extends Activity
 							DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
 							prefs_edit.putInt("mirror_status", 1);
 							prefs_edit.commit();
-							outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');\"\n");
-							outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';\"\n");
+							outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');\"\n");
+							outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';\"\n");
 							outputStream.writeBytes("am force-stop com.google.android.gsf\n");
 							outputStream.writeBytes("am force-stop com.google.android.gms\n");
 							outputStream.writeBytes("am force-stop com.google.android.apps.chromecast.app\n");
@@ -166,7 +168,7 @@ public class MainActivity extends Activity
 							DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
 							prefs_edit.putInt("mirror_status", 0);
 							prefs_edit.commit();
-							outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';\"\n");
+							outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';\"\n");
 							outputStream.writeBytes("am force-stop com.google.android.gsf\n");
 							outputStream.writeBytes("am force-stop com.google.android.gms\n");
 							outputStream.writeBytes("am force-stop com.google.android.apps.chromecast.app\n");
