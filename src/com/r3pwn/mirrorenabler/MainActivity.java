@@ -68,33 +68,23 @@ public class MainActivity extends Activity
 
 		// Checking preferences and adjusting the buttons accordingly
 		
-		File subin = new File("/system/bin/su");
-		if(subin.exists()) 
+		File subin  = new File("/system/bin/su");
+		File suxbin = new File("/system/xbin/su");
+		
+		if(!(subin.exists() || suxbin.exists())) 
 		{
-			// Nothing
-		}
-		else
-		{
-			File suxbin = new File("/system/xbin/su");
-			if(suxbin.exists())
-			{
-				// Nothing
-			}
-			else
-			{
-				final AlertDialog sualertDialog = new AlertDialog.Builder(MainActivity.this).create();
-				sualertDialog.setTitle("You aren't rooted");
-				sualertDialog.setMessage("It looks like you aren't rooted. Most features will not work. There is nothing I can do to help you.");
-
-				sualertDialog.setButton("Alright, thanks anyways.", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							sualertDialog.dismiss();
-						}
-					});
-
-				sualertDialog.show();  
-				mirror.setEnabled(false);
-			}
+			final AlertDialog sualertDialog = new AlertDialog.Builder(MainActivity.this).create();
+			sualertDialog.setTitle("You aren't rooted");
+			sualertDialog.setMessage("It looks like you aren't rooted. Most features will not work. There is nothing I can do to help you.");
+		
+			sualertDialog.setButton("Alright, thanks anyways.", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					sualertDialog.dismiss();
+				}
+			});
+		
+			sualertDialog.show();  
+			mirror.setEnabled(false);
 		}
 
 /**		// SQLite3 binary check.
