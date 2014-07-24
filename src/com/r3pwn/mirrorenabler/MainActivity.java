@@ -130,7 +130,7 @@ public class MainActivity extends Activity
 			qsmirror.setEnabled(false);
 		}
 		
-		if(audiosubmix.exists()) 
+		if(!audiosubmix.exists()) 
 		{
 			final AlertDialog asalertDialog = new AlertDialog.Builder(MainActivity.this).create();
 			asalertDialog.setTitle("Your ROM is incompatible");
