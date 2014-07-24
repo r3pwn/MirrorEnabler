@@ -38,6 +38,8 @@ public class MainActivity extends Activity
 		final int unsupported_shown = preferences.getInt("unsupported_shown", 0);
 		
 		final File backup = new File("/system/etc/audio_policy.conf.backup");
+		final File audiosubmix = new File("/system/lib/hw/audio.r_submix.default.so");
+		
 
 		// 1 = Enabled        0 = Disabled
 
@@ -128,6 +130,20 @@ public class MainActivity extends Activity
 			qsmirror.setEnabled(false);
 		}
 		
+		if(audiosubmix.exists()) 
+		{
+			final AlertDialog asalertDialog = new AlertDialog.Builder(MainActivity.this).create();
+			asalertDialog.setTitle("Your ROM is incompatible");
+			asalertDialog.setMessage("It seems that your ROM is lacking the audio_submix file. You must contact your device maintainer and ask them NICELY to implement it. Please refer to the red part of the original post on XDA-Developers.");
+
+			asalertDialog.setButton("Okay, will do.", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						asalertDialog.dismiss();
+					}
+				});
+			asalertDialog.show();  
+			fix.setEnabled(false);
+		}
 		
 		mirror.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
