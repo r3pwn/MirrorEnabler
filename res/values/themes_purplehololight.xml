@@ -7,42 +7,7 @@
 
   <style name="_PurpleHoloLight" parent="android:Theme.Holo.Light">
 
-    <item name="android:editTextBackground">@drawable/purplehololight_edit_text_holo_light</item>
-
-    <item name="android:textColorHighlight">#999933cc</item>
-    <item name="android:textSelectHandleLeft">@drawable/purplehololight_text_select_handle_left</item>
-    <item name="android:textSelectHandleRight">@drawable/purplehololight_text_select_handle_right</item>
-    <item name="android:textSelectHandle">@drawable/purplehololight_text_select_handle_middle</item>
-
-    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewPurpleHoloLight</item>
-
-    <item name="android:listChoiceIndicatorMultiple">@drawable/purplehololight_btn_check_holo_light</item>
-
-    <item name="android:listChoiceIndicatorSingle">@drawable/purplehololight_btn_radio_holo_light</item>
-
-    <item name="android:buttonStyle">@style/ButtonPurpleHoloLight</item>
-
-    <item name="android:imageButtonStyle">@style/ImageButtonPurpleHoloLight</item>
-
-    <item name="android:dropDownSpinnerStyle">@style/SpinnerPurpleHoloLight</item>
-
-    <item name="android:progressBarStyleHorizontal">@style/ProgressBarPurpleHoloLight</item>
-
-    <item name="android:seekBarStyle">@style/SeekBarPurpleHoloLight</item>
-
-    <item name="android:ratingBarStyle">@style/RatingBarPurpleHoloLight</item>
-
-    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigPurpleHoloLight</item>
-
-    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallPurpleHoloLight</item>
-
     <item name="android:buttonStyleToggle">@style/TogglePurpleHoloLight</item>
-
-    <item name="android:listChoiceBackgroundIndicator">@drawable/purplehololight_list_selector_holo_light</item>
-
-    <item name="android:activatedBackgroundIndicator">@drawable/purplehololight_activated_background_holo_light</item>
-
-    <item name="android:fastScrollThumbDrawable">@drawable/purplehololight_fastscroll_thumb_holo</item>
 
   </style>
 
