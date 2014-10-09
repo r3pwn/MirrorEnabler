@@ -132,7 +132,7 @@ public class MainActivity extends Activity {
         }
         
         // SQLite3 binary check
-        File mysqlfile = new File("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so");
+/*        File mysqlfile = new File("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so");
         if (!mysqlfile.exists()) {
             File file = new File("/system/bin/sqlite3");
             if (!file.exists()) {
@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
                     qsmirror.setEnabled(false);
                 }
             }
-        }
+        } */
         if (!audiosubmix.exists()) {
             final AlertDialog asalertDialog = new AlertDialog.Builder(MainActivity.this).create();
             asalertDialog.setTitle("Your ROM is incompatible");
@@ -178,13 +178,14 @@ public class MainActivity extends Activity {
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("mirror_status", ENABLED);
                         prefs_edit.apply();
-                        File mysqlfile = new File("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so");
-                        if(mysqlfile.exists()) {
-                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');\"\n");
-                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';\"\n");
-                        } else if(!mysqlfile.exists()) {
+                        File mysqlfile = new File("/system/xbin/sqlite3");
+                        File mysqlfile2 = new File("/system/bin/sqlite3");
+                        if(mysqlfile.exists() || mysqlfile2.exists()) {
                             outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');\"\n");
                             outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';\"\n");
+                        } else if(!mysqlfile.exists()) {
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');\"\n");
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';\"\n");
                         }
                         outputStream.writeBytes("am force-stop com.google.android.gsf\n");
                         outputStream.writeBytes("am force-stop com.google.android.gms\n");
@@ -210,11 +211,12 @@ public class MainActivity extends Activity {
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("mirror_status", DISABLED);
                         prefs_edit.apply();
-                        File mysqlfile = new File("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so");
-                        if(mysqlfile.exists()) {
-                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';\"\n");
-                        } else if(!mysqlfile.exists()) {
+                        File mysqlfile = new File("/system/xbin/sqlite3");
+                        File mysqlfile2 = new File("/system/bin/sqlite3");
+                        if(mysqlfile.exists() || mysqlfile2.exists()) {
                             outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';\"\n");
+                        } else if(!mysqlfile.exists()) {
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';\"\n");
                         }
                         outputStream.writeBytes("am force-stop com.google.android.gsf\n");
                         outputStream.writeBytes("am force-stop com.google.android.gms\n");
@@ -297,16 +299,16 @@ public class MainActivity extends Activity {
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("qsmirror_status", ENABLED);
                         prefs_edit.apply();
-                        File mysqlfile = new File("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so");
-                        if(mysqlfile.exists())
-                        {
-                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:remote_display_enabled', 'true');\"\n");
-                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:remote_display_enabled';\"\n");
+                        File mysqlfile = new File("/system/xbin/sqlite3");
+                        File mysqlfile2 = new File("/system/bin/sqlite3");
+                        if(mysqlfile.exists() || mysqlfile2.exists()) {
+                            outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:remote_display_enabled', 'true');\"\n");
+                            outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:remote_display_enabled';\"\n");
                         } else
                         if(!mysqlfile.exists())
                         {
-                            outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:remote_display_enabled', 'true');\"\n");
-                            outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:remote_display_enabled';\"\n");
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"INSERT INTO overrides (name, value) VALUES ('gms:cast:remote_display_enabled', 'true');\"\n");
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='true' WHERE name='gms:cast:remote_display_enabled';\"\n");
                         }
                         outputStream.writeBytes("am force-stop com.google.android.gsf\n");
                         outputStream.writeBytes("am force-stop com.google.android.gms\n");
@@ -332,7 +334,13 @@ public class MainActivity extends Activity {
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("qsmirror_status", DISABLED);
                         prefs_edit.apply();
-                        outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:remote_display_enabled';\"\n");
+                        File mysqlfile = new File("/system/xbin/sqlite3");
+                        File mysqlfile2 = new File("/system/bin/sqlite3");
+                        if(mysqlfile.exists() || mysqlfile2.exists()) {
+                            outputStream.writeBytes("sqlite3 /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:remote_display_enabled';\"\n");
+                        } else if (!mysqlfile.exists()) {
+                            outputStream.writeBytes("/data/data/com.r3pwn.mirrorenabler/lib/libhackyworkaround.so /data/data/com.google.android.gsf/databases/gservices.db \"UPDATE overrides SET value='false' WHERE name='gms:cast:remote_display_enabled';\"\n");
+                        }
                         outputStream.writeBytes("am force-stop com.google.android.gsf\n");
                         outputStream.writeBytes("am force-stop com.google.android.gms\n");
                         outputStream.writeBytes("am force-stop com.google.android.apps.chromecast.app\n");
