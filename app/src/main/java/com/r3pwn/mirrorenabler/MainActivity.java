@@ -100,7 +100,13 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					if (Build.VERSION.SDK_INT >= 21)
+					{
+						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+					} else
+					{
+						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					}
 					} catch (SQLException sqle) {
 						SQLiteDatabase db=openOrCreateDatabase("gservices.db", Context.MODE_WORLD_READABLE, null);
 						db.execSQL("UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';");
@@ -108,7 +114,13 @@ public class MainActivity extends Activity {
 						Shell.SU.run("am force-stop com.google.android.gms\n");
 						Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 						Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+						if (Build.VERSION.SDK_INT >= 21)
+						{
+							Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+						} else
+						{
+							Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+						}
 					} catch (Exception e) {
 						// We should never get this type of exception.
 					}
@@ -120,7 +132,13 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					if (Build.VERSION.SDK_INT >= 21)
+					{
+						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+					} else
+					{
+						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					}
                 }
             }
         });
@@ -187,7 +205,13 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					if (Build.VERSION.SDK_INT >= 21)
+					{
+						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+					} else
+					{
+						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					}
 					} catch(SQLException sqle)
 					{
 						SQLiteDatabase db=openOrCreateDatabase("gservices.db", Context.CONTEXT_IGNORE_SECURITY, null);
@@ -196,7 +220,13 @@ public class MainActivity extends Activity {
 						Shell.SU.run("am force-stop com.google.android.gms\n");
 						Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 						Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+						if (Build.VERSION.SDK_INT >= 21)
+						{
+							Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+						} else
+						{
+							Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+						}
 					} catch(Exception e)
 					{
 						// This part shouldn't happen.
