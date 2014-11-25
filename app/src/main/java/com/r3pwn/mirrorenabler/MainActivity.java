@@ -19,12 +19,8 @@ import java.io.IOException;
 import android.content.*;
 import android.database.sqlite.*;
 import eu.chainfire.libsuperuser.*;
-import com.stericson.RootTools.*;
-import com.stericson.RootTools.containers.*;
-import com.stericson.RootTools.exceptions.*;
 import android.database.*;
 
-@RootClass.Candidate
 public class MainActivity extends Activity {
     private static final int ENABLED = 1;
     private static final int DISABLED = 0;
