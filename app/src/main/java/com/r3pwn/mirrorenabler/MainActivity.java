@@ -1,6 +1,5 @@
 package com.r3pwn.mirrorenabler;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,7 +16,14 @@ import android.widget.ToggleButton;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import android.content.*;
+import android.database.sqlite.*;
+import eu.chainfire.libsuperuser.*;
+import com.stericson.RootTools.*;
+import com.stericson.RootTools.containers.*;
+import com.stericson.RootTools.exceptions.*;
 
+@RootClass.Candidate
 public class MainActivity extends Activity {
     private static final int ENABLED = 1;
     private static final int DISABLED = 0;
@@ -45,7 +51,7 @@ public class MainActivity extends Activity {
         final int fix_status = preferences.getInt("fix_status", DISABLED);
         final int qsmirror_status = preferences.getInt("qsmirror_status", DISABLED);
         final int incompatible_status = preferences.getInt("incompatible_status", DISABLED);
-        final int unsupported_shown = preferences.getInt("unsupported_shown", DISABLED);
+        //final int unsupported_shown = preferences.getInt("unsupported_shown", DISABLED);
         
         final File backup = new File("/system/etc/audio_policy.conf.backup");
         final File audiosubmix = new File("/system/lib/hw/audio.r_submix.default.so");
@@ -71,7 +77,7 @@ public class MainActivity extends Activity {
         prefs_edit.putInt("incompatible_status", DISABLED);
         prefs_edit.apply();
 
-        if (Build.VERSION.SDK_INT >= 20) {
+        /*if (Build.VERSION.SDK_INT >= 20) {
             prefs_edit.putInt("incompatible_status", ENABLED);
             prefs_edit.apply();
             if (unsupported_shown == DISABLED) {
@@ -88,9 +94,9 @@ public class MainActivity extends Activity {
                     });
                 unsupported_version.show();
             }
-        }
+        }*/
 
-        if (Build.VERSION.SDK_INT <= 18) {
+        /*if (Build.VERSION.SDK_INT <= 18) {
             prefs_edit.putInt("incompatible_status", ENABLED);
             prefs_edit.apply();
             if (unsupported_shown == DISABLED) {
@@ -110,11 +116,9 @@ public class MainActivity extends Activity {
                 fix.setEnabled(false);
                 qsmirror.setEnabled(false);
             }
-        }
+        }*/
 
-        File subin = new File("/system/bin/su");
-        File suxbin = new File("/system/xbin/su");
-        if(!(subin.exists() || suxbin.exists())) {
+        if(Shell.SU.available() == false) {
             final AlertDialog sualertDialog = new AlertDialog.Builder(MainActivity.this).create();
             sualertDialog.setTitle("You aren't rooted");
             sualertDialog.setMessage("It looks like you aren't rooted. Most features will not work. There is nothing I can do to help you.");
@@ -173,7 +177,7 @@ public class MainActivity extends Activity {
         mirror.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mirror.isChecked()) {
-                    try {
+                    /*try {
                         java.lang.Process su = Runtime.getRuntime().exec("su");
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("mirror_status", ENABLED);
@@ -204,9 +208,27 @@ public class MainActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
-                    }
+                    }*/
+					Shell.SU.run("cp /data/data/com.google.android.gsf/databases/gservices.db /data/data/com.r3pwn.mirrorenabler/databases/gservices.db\n");
+					/*try
+					{
+						Thread.sleep(3000);
+					}
+					catch (InterruptedException e)
+					{}*/
+					SQLiteDatabase db=openOrCreateDatabase("gservices.db", Context.MODE_WORLD_READABLE, null);
+					db.execSQL("INSERT INTO overrides (name, value) VALUES ('gms:cast:mirroring_enabled', 'true');");
+					db.execSQL("UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';");
+					Shell.SU.run("am force-stop com.google.android.gsf\n");
+					Shell.SU.run("am force-stop com.google.android.gms\n");
+					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
+					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					//List<String> suResult = Shell.SU.run(commandLine);
+					//System.out.println(suResult);
+					
                 } else {
-                    try {
+                    /*try {
                         java.lang.Process su = Runtime.getRuntime().exec("su");
                         DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
                         prefs_edit.putInt("mirror_status", DISABLED);
@@ -234,7 +256,21 @@ public class MainActivity extends Activity {
                         Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
-                    }
+                    }*/
+					Shell.SU.run("cp /data/data/com.google.android.gsf/databases/gservices.db /data/data/com.r3pwn.mirrorenabler/databases/gservices.db\n");
+					/*try
+					{
+						Thread.sleep(3000);
+					}
+					catch (InterruptedException e)
+					{}*/
+					SQLiteDatabase db=openOrCreateDatabase("gservices.db", Context.CONTEXT_IGNORE_SECURITY, null);
+					db.execSQL("UPDATE overrides SET value='false' WHERE name='gms:cast:mirroring_enabled';");
+					Shell.SU.run("am force-stop com.google.android.gsf\n");
+					Shell.SU.run("am force-stop com.google.android.gms\n");
+					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
+					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
                 }
             }
         });
