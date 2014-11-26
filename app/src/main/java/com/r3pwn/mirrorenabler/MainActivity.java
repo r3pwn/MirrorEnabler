@@ -73,7 +73,10 @@ public class MainActivity extends Activity {
             mirror.setEnabled(false);
             fix.setEnabled(false);
             qsmirror.setEnabled(false);
-        }
+        } else
+		{
+			Shell.SU.run("rm -f /data/data/com.google.android.gsf/databases/gservices.db-journal\n");
+		}
         if (!audiosubmix.exists()) {
             final AlertDialog asalertDialog = new AlertDialog.Builder(MainActivity.this).create();
             asalertDialog.setTitle("Your ROM is incompatible");
@@ -100,6 +103,8 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+					prefs_edit.putInt("mirror_status", ENABLED);
+                    prefs_edit.apply();
 					if (Build.VERSION.SDK_INT >= 21)
 					{
 						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
@@ -108,12 +113,15 @@ public class MainActivity extends Activity {
 						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
 					}
 					} catch (SQLException sqle) {
+						Shell.SU.run("cp /data/data/com.google.android.gsf/databases/gservices.db /data/data/com.r3pwn.mirrorenabler/databases/gservices.db\n");
 						SQLiteDatabase db=openOrCreateDatabase("gservices.db", Context.MODE_WORLD_READABLE, null);
 						db.execSQL("UPDATE overrides SET value='true' WHERE name='gms:cast:mirroring_enabled';");
 						Shell.SU.run("am force-stop com.google.android.gsf\n");
 						Shell.SU.run("am force-stop com.google.android.gms\n");
 						Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 						Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+						prefs_edit.putInt("mirror_status", ENABLED);
+                        prefs_edit.apply();
 						if (Build.VERSION.SDK_INT >= 21)
 						{
 							Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
@@ -122,7 +130,7 @@ public class MainActivity extends Activity {
 							Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
 						}
 					} catch (Exception e) {
-						// We should never get this type of exception.
+						// Bleh.
 					}
                 } else {
 					Shell.SU.run("cp /data/data/com.google.android.gsf/databases/gservices.db /data/data/com.r3pwn.mirrorenabler/databases/gservices.db\n");
@@ -132,6 +140,8 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+					prefs_edit.putInt("mirror_status", DISABLED);
+					prefs_edit.apply();
 					if (Build.VERSION.SDK_INT >= 21)
 					{
 						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
@@ -205,6 +215,8 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+					prefs_edit.putInt("qsmirror_status", ENABLED);
+                    prefs_edit.apply();
 					if (Build.VERSION.SDK_INT >= 21)
 					{
 						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
@@ -220,6 +232,8 @@ public class MainActivity extends Activity {
 						Shell.SU.run("am force-stop com.google.android.gms\n");
 						Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 						Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
+						prefs_edit.putInt("qsmirror_status", ENABLED);
+                        prefs_edit.apply();
 						if (Build.VERSION.SDK_INT >= 21)
 						{
 							Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
@@ -239,7 +253,15 @@ public class MainActivity extends Activity {
 					Shell.SU.run("am force-stop com.google.android.gms\n");
 					Shell.SU.run("am force-stop com.google.android.apps.chromecast.app\n");
 					Shell.SU.run("cp /data/data/com.r3pwn.mirrorenabler/databases/gservices.db /data/data/com.google.android.gsf/databases/gservices.db\n");
-					Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					prefs_edit.putInt("qsmirror_status", DISABLED);
+					prefs_edit.apply();
+					if (Build.VERSION.SDK_INT >= 21)
+					{
+						Toast.makeText(getApplicationContext(),"Please reboot for changes to take effect.", Toast.LENGTH_LONG).show();
+					} else
+					{
+						Toast.makeText(getApplicationContext(),"Changes applied.", Toast.LENGTH_LONG).show();
+					}
                 }
             }
         });
