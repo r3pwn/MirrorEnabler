@@ -29,6 +29,23 @@ public class Debug {
 
     private static boolean debug = com.r3pwn.mirrorenabler.BuildConfig.DEBUG;
 
+    public static final String TAG = "libsuperuser";
+
+    public static final int LOG_GENERAL = 0x0001;
+    public static final int LOG_COMMAND = 0x0002;
+    public static final int LOG_OUTPUT = 0x0004;
+
+    public static final int LOG_NONE = 0x0000;
+    public static final int LOG_ALL = 0xFFFF;
+
+    private static int logTypes = LOG_ALL;
+
+    private static OnLogListener logListener = null;
+
+    // ----- SANITY CHECKS -----
+
+    private static boolean sanityChecks = true;
+
     /**
      * <p>Enable or disable debug mode</p>
      * 
@@ -56,19 +73,6 @@ public class Debug {
     public interface OnLogListener {
         public void onLog(int type, String typeIndicator, String message);
     }
-
-    public static final String TAG = "libsuperuser";
-
-    public static final int LOG_GENERAL = 0x0001;
-    public static final int LOG_COMMAND = 0x0002;
-    public static final int LOG_OUTPUT = 0x0004;
-
-    public static final int LOG_NONE = 0x0000;
-    public static final int LOG_ALL = 0xFFFF;
-
-    private static int logTypes = LOG_ALL;
-
-    private static OnLogListener logListener = null;
 
     /**
      * <p>Log a message (internal)</p>
@@ -189,10 +193,6 @@ public class Debug {
     public static OnLogListener getOnLogListener() {
         return logListener;
     }
-
-    // ----- SANITY CHECKS -----
-
-    private static boolean sanityChecks = true;
 
     /**
      * <p>Enable or disable sanity checks</p>

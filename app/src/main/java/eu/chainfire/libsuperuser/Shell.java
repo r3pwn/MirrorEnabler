@@ -41,6 +41,12 @@ import eu.chainfire.libsuperuser.StreamGobbler.OnLineListener;
  * Class providing functionality to execute commands in a (root) shell
  */
 public class Shell {
+
+    protected static String[] availableTestCommands = new String[] {
+            "echo -BOC-",
+            "id"
+    };
+
     /**
      * <p>
      * Runs commands using the supplied shell, and returns the output, or null
@@ -190,11 +196,6 @@ public class Shell {
         Debug.logCommand(String.format("[%s%%] END", shell.toUpperCase(Locale.ENGLISH)));
         return res;
     }
-
-    protected static String[] availableTestCommands = new String[] {
-            "echo -BOC-",
-            "id"
-    };
 
     /**
      * See if the shell is alive, and if so, check the UID
