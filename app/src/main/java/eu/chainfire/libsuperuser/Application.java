@@ -25,6 +25,9 @@ import android.widget.Toast;
  * toasts and AsyncTasks you are likely to run into
  */
 public class Application extends android.app.Application {
+
+    private static Handler mApplicationHandler = new Handler();
+
     /**
      * Shows a toast message
      * 
@@ -53,8 +56,6 @@ public class Application extends android.app.Application {
             });
         }
     }
-
-    private static Handler mApplicationHandler = new Handler();
 
     /**
      * Run a runnable in the main application thread
