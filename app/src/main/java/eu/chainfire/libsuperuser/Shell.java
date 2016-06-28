@@ -232,7 +232,10 @@ public class Shell {
     /**
      * This class provides utility functions to easily execute commands using SH
      */
-    public static class SH {
+    public static final class SH {
+
+        private SH() {}
+
         /**
          * Runs command and return output
          * 
@@ -271,7 +274,10 @@ public class Shell {
      * (root shell), as well as detecting whether or not root is available, and
      * if so which version.
      */
-    public static class SU {
+    public static final class SU {
+
+        private SU() {}
+
         private static Boolean isSELinuxEnforcing = null;
         private static String[] suVersion = new String[] {
                 null, null
