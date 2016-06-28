@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public class StreamGobbler extends Thread {
      */
     public StreamGobbler(String shell, InputStream inputStream, List<String> outputList) {
         this.shell = shell;
-        reader = new BufferedReader(new InputStreamReader(inputStream));
+        reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         writer = outputList;
     }
 
@@ -77,7 +78,7 @@ public class StreamGobbler extends Thread {
      */
     public StreamGobbler(String shell, InputStream inputStream, OnLineListener onLineListener) {
         this.shell = shell;
-        reader = new BufferedReader(new InputStreamReader(inputStream));
+        reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         listener = onLineListener;
     }
 
